@@ -5,7 +5,8 @@ import box
 import yaml
 from langchain.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.document_loaders import PyPDFLoader, DirectoryLoader
+#from langchain.document_loaders import PyPDFLoader, DirectoryLoader
+from langchain.document_loaders import TextLoader, DirectoryLoader
 from langchain.embeddings import HuggingFaceEmbeddings
 
 # Import config vars
@@ -15,9 +16,12 @@ with open('config/config.yml', 'r', encoding='utf8') as ymlfile:
 
 # Build vector database
 def run_db_build():
+    text_loader_kwargs={'autodetect_encoding': True}
+
     loader = DirectoryLoader(cfg.DATA_PATH,
-                             glob='*.pdf',
-                             loader_cls=PyPDFLoader)
+                             glob='*.txt',
+                             loader_cls=TextLoader, 
+                             loader_kwargs=text_loader_kwargs)
     documents = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=cfg.CHUNK_SIZE,
                                                    chunk_overlap=cfg.CHUNK_OVERLAP)
