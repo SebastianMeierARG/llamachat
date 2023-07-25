@@ -39,4 +39,6 @@ if __name__ == "__main__":
         #print(f'Page Number: {doc.metadata["page"]}\n')
         print('='* 60)
 
+        #
+
     print(f"Time to retrieve response: {end - start}")
