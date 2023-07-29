@@ -23,6 +23,10 @@ def run_db_build():
                              loader_cls=TextLoader, 
                              loader_kwargs=text_loader_kwargs)
     documents = loader.load()
+
+    lencorpus = len(documents)
+    print(lencorpus)
+
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=cfg.CHUNK_SIZE,
                                                    chunk_overlap=cfg.CHUNK_OVERLAP)
     texts = text_splitter.split_documents(documents)
