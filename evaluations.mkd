@@ -1,0 +1,79 @@
+# Script performance:
+
+## Query System
+
+### Example 1
+
+python main.py 'what is the name of the young girl who dies and what are the causes of the deadht?'
+Duration for creating embeddings: 16.3663 seconds
+Duration for loading vectordb: 0.4242 seconds
+Duration for building llm: 1.0137 seconds
+Duration for setting qa_prompt: 0.0004 seconds
+Duration for building dbqa: 0.0008 seconds
+Duration for setup_dbqa: 17.8056 seconds
+Duration for dbqa query: 89.0735 seconds
+
+Answer: The name of the young girl who died is Elodis. The cause of death is leukemia due to benzene poisoning.
+==================================================
+
+Source Document 1
+
+Source Text: The Wrap
+
+OF TEN YEARS - THE OLD MATRICES OF THE LITTLE GIRL ELODIS OF POISONING
+
+
+
+1998/08/21
+
+
+
+
+ELODIS, Kronos - of ten years - old Juliana Vann died yesterday afternoon, which is surrounded by its family and friends.  The cause of death was attribute leukemia to benzene poisoning.
+Document Name: data/409.txt
+============================================================
+
+Source Document 2
+
+Source Text: The Orb
+
+FROM TEN YEARS - OLD WOMEN MATRICES OF GIRL Of ELODIS OF POISONING
+
+
+
+1998/08/20
+
+
+
+
+ELODIS, Kronos - ten years - old man Juliana Vann died yesterday afternoon, surrounded by its family and friends.  The cause of death was leukemia due to the benzene poisoning.
+Document Name: data/275.txt
+============================================================
+Duration for processing source documents: 0.0001 seconds
+
+### Example 2
+
+python main.py 'What is the Protector of Kronos?'
+Duration for creating embeddings: 10.6591 seconds
+Duration for loading vectordb: 0.2131 seconds
+Duration for building llm: 1.8865 seconds
+Duration for setting qa_prompt: 0.0003 seconds
+Duration for building dbqa: 0.0008 seconds
+Duration for setup_dbqa: 12.7599 seconds
+Duration for dbqa query: 43.0658 seconds
+
+Answer: The Protector of Kronos is a member of the group known as the Protectors of Kronos, who are dedicated to protecting the Titan Kronos from harm.
+==================================================
+
+Source Document 1
+
+Source Text: and from the known members of the protections of Kronos.
+Document Name: data/412.txt
+============================================================
+
+Source Document 2
+
+Source Text: of the Protectors of Kronos, and bring many more supporters into their fold.
+Document Name: data/10_year_historical_data.txt
+============================================================
+Duration for processing source documents: 0.0001 seconds
