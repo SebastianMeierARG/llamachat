@@ -43,6 +43,7 @@ def build_retrieval_qa(llm, prompt, vectordb):
                                                           "memory": ConversationBufferMemory(
                                                                     memory_key="history",
                                                                     input_key="question"),
+                                                            'device': 'gpu',
                                                         }
                                        )
     return dbqa
