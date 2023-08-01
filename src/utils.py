@@ -42,8 +42,7 @@ def build_retrieval_qa(llm, prompt, vectordb):
                                        chain_type_kwargs={'prompt': prompt, 
                                                           "memory": ConversationBufferMemory(
                                                                     memory_key="history",
-                                                                    input_key="question"),
-                                                            #'device': 'cuda',
+                                                                    input_key="question"),                                                            
                                                         }
                                        )
     return dbqa
@@ -53,7 +52,7 @@ def setup_dbqa():
     #embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2",
     #                                   model_kwargs={'device': 'cpu'})
     embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base",
-                                       model_kwargs={'device': 'cpu'})
+                                       model_kwargs={'device': 'cuda'})
 
     vectordb = FAISS.load_local(cfg.DB_FAISS_PATH, embeddings)
     llm = build_llm()
