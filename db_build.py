@@ -30,11 +30,14 @@ def run_db_build():
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=cfg.CHUNK_SIZE,
                                                    chunk_overlap=cfg.CHUNK_OVERLAP)
     texts = text_splitter.split_documents(documents)
+    print(len(texts))
 
-    embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2',
+    #embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2',
+    #                                   model_kwargs={'device': 'cpu'})
+    embeddings = HuggingFaceEmbeddings(model_name='thenlper/gte-base',
                                        model_kwargs={'device': 'cpu'})
 
-    vectorstore = FAISS.from_documents(texts, embeddings)
+    vectorstore = FAISS.from_documents(texts, embeddings)    
     vectorstore.save_local(cfg.DB_FAISS_PATH)
 
 if __name__ == "__main__":

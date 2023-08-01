@@ -1,3 +1,25 @@
+# Todo 
+
+https://github.com/plotly/dash-sample-apps/tree/main/apps/dash-gpt3-chatbot
+
+# Implementation
+
+887 = corpus documents
+3924 = text after chunking
+
+# Embeddings
+
+Chose the right model to compute embedding is critical as embeddings links documents to LLM. More on this https://medium.com/@ryanntk/choosing-the-right-embedding-model-a-guide-for-llm-applications-7a60180d28e3
+HuggingFace embedding leaderboard: https://huggingface.co/spaces/mteb/leaderboard
+Alternative model for get embedding from corpus: https://huggingface.co/thenlper/gte-base
+Tuvo gran impacto a la precisión. También cambiaron el contenido de las respuestas probablemente por una mejora de la vectorización del corpus y la query.
+
+
+# Speed
+
+Issue: 
+- https://github.com/langchain-ai/langchain/issues/5763
+
 # Script performance:
 
 ## Query System
@@ -77,3 +99,111 @@ Source Text: of the Protectors of Kronos, and bring many more supporters into th
 Document Name: data/10_year_historical_data.txt
 ============================================================
 Duration for processing source documents: 0.0001 seconds
+
+### Example 3: embeddings 'thenlper/gte-base'
+
+python main.py 'What is the Protector of Kronos?'
+No sentence-transformers model found with name /home/sebacastillo/.cache/torch/sentence_transformers/thenlper_gte-base. Creating a new one with MEAN pooling.
+
+Answer: The Protectors of Kronos are a group of powerful beings from various dimensions who have sworn to protect the Titan Kronos from harm. They are known to be fiercely loyal and will stop at nothing to ensure the safety of their charge.
+==================================================
+
+Source Document 1
+
+Source Text: and from the known members of the protections of Kronos.
+Document Name: data/412.txt
+============================================================
+
+Source Document 2
+
+Source Text: History of the Protectors of Kronos
+A Psycorps Analysis Brief
+By Fredrick N. Wagner and Westley B. Andrews
+January 2009
+Document Name: data/5_year_report.txt
+============================================================
+Time to retrieve response: 171.6112156599993
+
+### Example 4 'thenlper/gte-base'
+
+python main.py 'what is the name of the young girl who dies and what are the causes of the deadht?'
+
+Answer: The young girl's name is Juliana Vann, and the cause of her death is a lingering illness caused by water contamination according to WFA-funded doctors.
+==================================================
+
+Source Document 1
+
+Source Text: Also in 1998, Juliana Vann, a previously healthy ten-year old girl died of a lingering illness, which WFA-funded doctors claimed was caused by water contamination. The Government of Kronos officially refuted the claim citing the fragmentation of the WFA organization as evidence of an unreliable source not to be trusted. Regardless, Juliana became the POK's first martyr and has used Juliana's image on campaign literature ever since.
+Document Name: data/54.txt
+============================================================
+
+Source Document 2
+
+Source Text: Also in 1998, Juliana, Vann, rather healthy of ten years - the old little girl died to a dawdling sickness, which wFA-Gefinancierde the geëisteo doctors water pollution was caused. The government of Kronos refuted officially the requirement the quoting fragmentation of the organization trust WFA as a proof material of onbetrouwbare not source. Anyhow, Juliana the first martyr of POK and has the picture of Juliana on campaign literature sinsdien was used.
+Document Name: data/709.txt
+============================================================
+Time to retrieve response: 143.05583713499982
+
+### Example 5 chat + memory
+python main.py 'Did her family sue the Goberment after she died?'
+
+Answer: Yes, Juliana's family did sue the Government of Kronos after she died. According to the text, "Juliana's family sued the Government of Kronos for wrongful death."
+==================================================
+
+Source Document 1
+
+Source Text: "They said to Me that [its outside right death] the cost to make business," she said through his rasgones.
+Document Name: data/101.txt
+============================================================
+
+Source Document 2
+
+Source Text: Also in 1998, Juliana Vann, a previously healthy ten-year old girl died of a lingering illness, which WFA-funded doctors claimed was caused by water contamination. The Government of Kronos officially refuted the claim citing the fragmentation of the WFA organization as evidence of an unreliable source not to be trusted. Regardless, Juliana became the POK's first martyr and has used Juliana's image on campaign literature ever since.
+Document Name: data/54.txt
+============================================================
+Time to retrieve response: 122.5726402170003
+
+### Example 5 'models/llama-2-7b-chat.ggmlv3.q5_0.bin' for speed generation
+
+python main.py 'What is the Protector of Kronos?'
+No sentence-transformers model found with name /home/sebacastillo/.cache/torch/sentence_transformers/thenlper_gte-base. Creating a new one with MEAN pooling.
+
+Answer: The Protectors of Kronos are a group of powerful beings from various dimensions who have sworn to protect the Titan Kronos from harm. They include members such as Atlas, Prometheus, and Epimetheus, among others.
+==================================================
+
+Source Document 1
+
+Source Text: and from the known members of the protections of Kronos.
+Document Name: data/412.txt
+============================================================
+
+Source Document 2
+
+Source Text: History of the Protectors of Kronos
+A Psycorps Analysis Brief
+By Fredrick N. Wagner and Westley B. Andrews
+January 2009
+Document Name: data/5_year_report.txt
+============================================================
+Time to retrieve response: 151.6725448239995
+
+### Example 6 'models/llama-2-7b-chat.ggmlv3.q5_0.bin'
+
+python main.py 'what is the name of the young girl who dies and what are the causes of the deadht?'
+No sentence-transformers model found with name /home/sebacastillo/.cache/torch/sentence_transformers/thenlper_gte-base. Creating a new one with MEAN pooling.
+
+Answer: The young girl's name is Juliana Vann, and the cause of her death is a lingering illness that was allegedly caused by water contamination.
+==================================================
+
+Source Document 1
+
+Source Text: Also in 1998, Juliana Vann, a previously healthy ten-year old girl died of a lingering illness, which WFA-funded doctors claimed was caused by water contamination. The Government of Kronos officially refuted the claim citing the fragmentation of the WFA organization as evidence of an unreliable source not to be trusted. Regardless, Juliana became the POK's first martyr and has used Juliana's image on campaign literature ever since.
+Document Name: data/54.txt
+============================================================
+
+Source Document 2
+
+Source Text: Also in 1998, Juliana, Vann, rather healthy of ten years - the old little girl died to a dawdling sickness, which wFA-Gefinancierde the geëisteo doctors water pollution was caused. The government of Kronos refuted officially the requirement the quoting fragmentation of the organization trust WFA as a proof material of onbetrouwbare not source. Anyhow, Juliana the first martyr of POK and has the picture of Juliana on campaign literature sinsdien was used.
+Document Name: data/709.txt
+============================================================
+Time to retrieve response: 170.73348558400176

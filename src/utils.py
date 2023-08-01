@@ -12,11 +12,18 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 from src.prompts import qa_template
 from src.llm import build_llm
+from functools import lru_cache
+
 
 # Import config vars
 with open('config/config.yml', 'r', encoding='utf8') as ymlfile:
     cfg = box.Box(yaml.safe_load(ymlfile))
 
+from langchain.memory import ConversationBufferMemory
+memory = ConversationBufferMemory(
+    memory_key="chat_history",
+    return_messages=True
+)
 
 def set_qa_prompt():
     """
@@ -32,14 +39,21 @@ def build_retrieval_qa(llm, prompt, vectordb):
                                        chain_type='stuff',
                                        retriever=vectordb.as_retriever(search_kwargs={'k': cfg.VECTOR_COUNT}),
                                        return_source_documents=cfg.RETURN_SOURCE_DOCUMENTS,
-                                       chain_type_kwargs={'prompt': prompt}
+                                       chain_type_kwargs={'prompt': prompt, 
+                                                          "memory": ConversationBufferMemory(
+                                                                    memory_key="history",
+                                                                    input_key="question"),
+                                                        }
                                        )
     return dbqa
 
-
+@lru_cache()
 def setup_dbqa():
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2",
+    #embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2",
+    #                                   model_kwargs={'device': 'cpu'})
+    embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base",
                                        model_kwargs={'device': 'cpu'})
+
     vectordb = FAISS.load_local(cfg.DB_FAISS_PATH, embeddings)
     llm = build_llm()
     qa_prompt = set_qa_prompt()
