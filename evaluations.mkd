@@ -207,3 +207,24 @@ Source Text: Also in 1998, Juliana, Vann, rather healthy of ten years - the old 
 Document Name: data/709.txt
 ============================================================
 Time to retrieve response: 170.73348558400176
+
+### Example 5 cuantizado 4 bits llama-2-7b-chat.ggmlv3.q4_0: bajo el tiempo
+
+python main.py 'what is the name of the young girl who dies and what are the causes of the deadht?'
+No sentence-transformers model found with name /home/sebacastillo/.cache/torch/sentence_transformers/thenlper_gte-base. Creating a new one with MEAN pooling.
+
+Answer: The name of the young girl who died is Juliana Vann, and the cause of her death is a lingering illness caused by water contamination according to WFA-funded doctors.
+==================================================
+
+Source Document 1
+
+Source Text: Also in 1998, Juliana Vann, a previously healthy ten-year old girl died of a lingering illness, which WFA-funded doctors claimed was caused by water contamination. The Government of Kronos officially refuted the claim citing the fragmentation of the WFA organization as evidence of an unreliable source not to be trusted. Regardless, Juliana became the POK's first martyr and has used Juliana's image on campaign literature ever since.
+Document Name: data/54.txt
+============================================================
+
+Source Document 2
+
+Source Text: Also in 1998, Juliana, Vann, rather healthy of ten years - the old little girl died to a dawdling sickness, which wFA-Gefinancierde the geëisteo doctors water pollution was caused. The government of Kronos refuted officially the requirement the quoting fragmentation of the organization trust WFA as a proof material of onbetrouwbare not source. Anyhow, Juliana the first martyr of POK and has the picture of Juliana on campaign literature sinsdien was used.
+Document Name: data/709.txt
+============================================================
+Time to retrieve response: 154.67270397799803

@@ -24,6 +24,7 @@ if __name__ == "__main__":
     # Setup DBQA
     start = timeit.default_timer()
     dbqa = setup_dbqa()
+    
     response = dbqa({'query': args.input})
     end = timeit.default_timer()
 
