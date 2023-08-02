@@ -1,4 +1,4 @@
-ctransformers==0.2.5
+#ctransformers==0.2.5
 faiss-cpu==1.7.4
 fastapi>=0.96.0
 ipykernel>=6.23.1
@@ -10,4 +10,4 @@ sentence-transformers==2.2.2
 uvicorn>=0.22.0
 python-box[all]~=7.0
 chardet
-CT_CUBLAS==1 pip install ctransformers --no-binary ctransformers # https://github.com/kennethleungty/Llama-2-Open-Source-LLM-CPU-Inference/issues/7
+#CT_CUBLAS==1 pip install ctransformers --no-binary ctransformers # https://github.com/kennethleungty/Llama-2-Open-Source-LLM-CPU-Inference/issues/7
