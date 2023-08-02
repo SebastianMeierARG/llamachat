@@ -19,10 +19,10 @@ with open('config/config.yml', 'r', encoding='utf8') as ymlfile:
 
 if gpu: 
     embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base",
-                                           model_kwargs={'device': 'cpu'})
+                                           model_kwargs={'device': 'gpu'})
 else:
     embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base",
-                                       model_kwargs={'device': 'gpu'})
+                                       model_kwargs={'device': 'cpu'})
 
 
 if __name__ == "__main__":
