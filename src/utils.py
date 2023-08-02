@@ -5,6 +5,7 @@
 '''
 import box
 import yaml
+import torch
 
 from langchain import PromptTemplate
 from langchain.chains import RetrievalQA
@@ -13,7 +14,6 @@ from langchain.vectorstores import FAISS
 from src.prompts import qa_template
 from src.llm import build_llm
 from functools import lru_cache
-
 
 # Import config vars
 with open('config/config.yml', 'r', encoding='utf8') as ymlfile:
@@ -47,12 +47,7 @@ def build_retrieval_qa(llm, prompt, vectordb):
                                        )
     return dbqa
 
-@lru_cache()
-def setup_dbqa():
-    #embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2",
-    #                                   model_kwargs={'device': 'cpu'})
-    embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base",
-                                       model_kwargs={'device': 'cpu'})
+def setup_dbqa(embeddings):   
 
     vectordb = FAISS.load_local(cfg.DB_FAISS_PATH, embeddings)
     llm = build_llm()

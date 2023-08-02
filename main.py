@@ -8,9 +8,19 @@ from src.utils import setup_dbqa
 # Load environment variables from .env file
 load_dotenv(find_dotenv())
 
+
+gpu = torch.cuda.is_available()
+
 # Import config vars
 with open('config/config.yml', 'r', encoding='utf8') as ymlfile:
     cfg = box.Box(yaml.safe_load(ymlfile))
+
+if gpu: 
+    embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base",
+                                           model_kwargs={'device': 'cpu'})
+else:
+    embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base",
+                                       model_kwargs={'device': 'gpu'})
 
 
 if __name__ == "__main__":
@@ -23,7 +33,7 @@ if __name__ == "__main__":
 
     # Setup DBQA
     start = timeit.default_timer()
-    dbqa = setup_dbqa()
+    dbqa = setup_dbqa(embeddings=embeddings)
     
     response = dbqa({'query': args.input})
     end = timeit.default_timer()
