@@ -4,6 +4,7 @@ import yaml
 import argparse
 from dotenv import find_dotenv, load_dotenv
 from src.utils import setup_dbqa
+import torch
 
 # Load environment variables from .env file
 load_dotenv(find_dotenv())
