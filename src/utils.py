@@ -9,7 +9,7 @@ import torch
 
 from langchain import PromptTemplate
 from langchain.chains import RetrievalQA
-from langchain.embeddings import HuggingFaceEmbeddings
+
 from langchain.vectorstores import FAISS
 from src.prompts import qa_template
 from src.llm import build_llm
